@@ -49,18 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         newQuestion();
 
-        new CountDownTimer(30100, 1000) {
-            @Override
-            public void onTick(long l) {
-                timerTextView.setText(String.valueOf(l / 1000) +"s");
-            }
-
-            @Override
-            public void onFinish() {
-                resultTextView.setText("Done!");
-                playAgainButton.setVisibility(view.VIS);
-            }
-        }.start();
+        playAgain(findViewById(R.id.timerTextView)); // we pass some random view
     }
 
     // when choosing an answer.
@@ -110,6 +99,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playAgain(View view) {
+        score = 0;
+        numberOfQuestions = 0;
+        timerTextView.setText("30s");
+        scoreTextView.setText(Integer.toString(score)+ "/"+Integer.toString(numberOfQuestions));
+        newQuestion();
+        playAgainButton.setVisibility(View.INVISIBLE);
 
+        new CountDownTimer(30100, 1000) {
+            @Override
+            public void onTick(long l) {
+                timerTextView.setText(String.valueOf(l / 1000) +"s");
+            }
+
+            @Override
+            public void onFinish() {
+                resultTextView.setText("Done!");
+                playAgainButton.setVisibility(View.VISIBLE);
+            }
+        }.start();
     }
 }
