@@ -1,6 +1,7 @@
 package com.example.gitahi.gridstimerssound;
 
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,9 +26,12 @@ public class MainActivity extends AppCompatActivity {
     TextView sumTextView;
     TextView timerTextView;
     Button playAgainButton;
+    ConstraintLayout gameLayout;
 
     public void start(View view) {
         goButton.setVisibility(View.INVISIBLE);
+        gameLayout.setVisibility(View.VISIBLE);
+        playAgain(findViewById(R.id.timerTextView)); // we pass some random view
     }
 
     @Override
@@ -44,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
         scoreTextView = findViewById(R.id.scoreTextView);
         timerTextView = findViewById(R.id.timerTextView);
         playAgainButton = findViewById(R.id.playAgainButton);
-
+        gameLayout = findViewById(R.id.gameLayout);
         goButton = findViewById(R.id.goButton);
+        goButton.setVisibility(View.VISIBLE);
 
-        newQuestion();
+        gameLayout.setVisibility(View.INVISIBLE);
 
-        playAgain(findViewById(R.id.timerTextView)); // we pass some random view
     }
 
     // when choosing an answer.
@@ -105,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         scoreTextView.setText(Integer.toString(score)+ "/"+Integer.toString(numberOfQuestions));
         newQuestion();
         playAgainButton.setVisibility(View.INVISIBLE);
+        resultTextView.setText("");
 
         new CountDownTimer(30100, 1000) {
             @Override
